@@ -1,26 +1,247 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   FOREVER LIVING — Colors & Type Foundations
+   Source: FLP Style Guide v25 + brand charter
+   Fonts: Barlow on every family (Teranga Aloe project rule).
+   Barlow is self-hosted via next/font (var --font-barlow).
+   ============================================================ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---------- PRIMARY PALETTE ---------- */
+  --aloe-gold:      #FFC600;
+  --forever-black:  #000000;
+  --rich-black:     #2C2A29;
+  --forever-white:  #FFFFFF;
+
+  /* ---------- SECONDARY PALETTE ---------- */
+  --earth-brown:    #5D4B3C;
+  --sky-blue:       #4C9FC8;
+  --aloe-green:     #74AA50;
+
+  /* ---------- GOLD TINTS ---------- */
+  --gold-90: #FFCE1A;
+  --gold-70: #FFD64D;
+  --gold-50: #FFE280;
+  --gold-30: #FFEFB3;
+  --gold-15: #FFF7D9;
+  --gold-08: #FFFBED;
+
+  /* ---------- NEUTRALS (warm grey ramp) ---------- */
+  --ink-900: #1A1817;
+  --ink-800: #2C2A29;
+  --ink-700: #44403D;
+  --ink-600: #5E5954;
+  --ink-500: #807A73;
+  --ink-400: #A8A29B;
+  --ink-300: #CFC9C1;
+  --ink-200: #E7E2DA;
+  --ink-100: #F2EEE7;
+  --ink-050: #FAF8F4;
+
+  /* ---------- SECONDARY TINTS ---------- */
+  --green-30: #D6E5C9;
+  --green-15: #EBF2E3;
+  --blue-30:  #C9E1ED;
+  --blue-15:  #E4F0F6;
+  --brown-30: #D5CDC5;
+  --brown-15: #EAE6E1;
+
+  /* ---------- SEMANTIC COLOR ROLES ---------- */
+  --bg:            var(--forever-white);
+  --bg-tinted:     var(--ink-050);
+  --bg-gold:       var(--aloe-gold);
+  --bg-ink:        var(--rich-black);
+  --surface:       var(--forever-white);
+  --surface-warm:  var(--ink-100);
+
+  --fg:            var(--rich-black);
+  --fg-strong:     var(--forever-black);
+  --fg-muted:      var(--ink-600);
+  --fg-subtle:     var(--ink-500);
+  --fg-on-gold:    var(--forever-black);
+  --fg-on-ink:     var(--forever-white);
+
+  --border:        var(--ink-200);
+  --border-strong: var(--ink-300);
+  --divider:       var(--ink-100);
+
+  --accent-color:  var(--aloe-gold);
+  --link:          var(--earth-brown);
+  --success:       var(--aloe-green);
+  --info:          var(--sky-blue);
+
+  /* ---------- TYPE FAMILIES (Barlow partout, via next/font) ---------- */
+  --font-sans:    var(--font-barlow), 'Barlow', sans-serif;
+  --font-serif:   var(--font-barlow), 'Barlow', sans-serif;
+  --font-script:  var(--font-barlow), 'Barlow', sans-serif;
+
+  /* ---------- RADII ---------- */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---------- ELEVATION ---------- */
+  --shadow-xs: 0 1px 2px rgba(44,42,41,0.06);
+  --shadow-sm: 0 2px 8px rgba(44,42,41,0.08);
+  --shadow-md: 0 6px 20px rgba(44,42,41,0.10);
+  --shadow-lg: 0 16px 40px rgba(44,42,41,0.14);
+  --shadow-gold: 0 8px 24px rgba(255,198,0,0.35);
+
+  /* ---------- MOTION ---------- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ============================================================
+     shadcn semantic tokens mapped onto the Forever palette
+     ============================================================ */
+  --radius: 0.625rem;
+  --background: var(--ink-050);
+  --foreground: var(--rich-black);
+  --card: var(--forever-white);
+  --card-foreground: var(--rich-black);
+  --popover: var(--forever-white);
+  --popover-foreground: var(--rich-black);
+  --primary: var(--aloe-gold);
+  --primary-foreground: var(--forever-black);
+  --secondary: var(--ink-100);
+  --secondary-foreground: var(--forever-black);
+  --muted: var(--ink-100);
+  --muted-foreground: var(--ink-600);
+  --accent: var(--gold-15);
+  --accent-foreground: var(--forever-black);
+  --destructive: #C0392B;
+  --ring: var(--gold-50);
+  --input: var(--ink-200);
+  --chart-1: var(--aloe-gold);
+  --chart-2: var(--sky-blue);
+  --chart-3: var(--aloe-green);
+  --chart-4: var(--earth-brown);
+  --chart-5: var(--ink-500);
+  --sidebar: var(--rich-black);
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: var(--aloe-gold);
+  --sidebar-primary-foreground: var(--forever-black);
+  --sidebar-accent: rgba(255,255,255,0.07);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255,255,255,0.1);
+  --sidebar-ring: var(--gold-50);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Forever palette exposed as Tailwind colors */
+  --color-aloe-gold: var(--aloe-gold);
+  --color-forever-black: var(--forever-black);
+  --color-rich-black: var(--rich-black);
+  --color-earth-brown: var(--earth-brown);
+  --color-sky-blue: var(--sky-blue);
+  --color-aloe-green: var(--aloe-green);
+  --color-gold-90: var(--gold-90);
+  --color-gold-70: var(--gold-70);
+  --color-gold-50: var(--gold-50);
+  --color-gold-30: var(--gold-30);
+  --color-gold-15: var(--gold-15);
+  --color-gold-08: var(--gold-08);
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-ink-500: var(--ink-500);
+  --color-ink-400: var(--ink-400);
+  --color-ink-300: var(--ink-300);
+  --color-ink-200: var(--ink-200);
+  --color-ink-100: var(--ink-100);
+  --color-ink-050: var(--ink-050);
+  --color-green-30: var(--green-30);
+  --color-green-15: var(--green-15);
+  --color-blue-30: var(--blue-30);
+  --color-blue-15: var(--blue-15);
+  --color-brown-30: var(--brown-30);
+  --color-brown-15: var(--brown-15);
+  --color-fg: var(--fg);
+  --color-fg-strong: var(--fg-strong);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-surface: var(--surface);
+  --color-bg-tinted: var(--bg-tinted);
+
+  /* shadcn tokens */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg-tinted);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--gold-50); }
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-thumb { background: var(--ink-300); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ink-400); background-clip: padding-box; }
+  ::-webkit-scrollbar-track { background: transparent; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideIn { from { transform: translateX(40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes popIn { from { transform: scale(0.96) translateY(6px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+
+/* ---------- Forever semantic type helpers ---------- */
+.fl-h1 { font-weight: 700; font-size: 48px; line-height: 1.1; letter-spacing: -0.035em; color: var(--fg-strong); margin: 0; }
+.fl-h2 { font-weight: 700; font-size: 36px; line-height: 1.25; letter-spacing: -0.02em; color: var(--fg-strong); margin: 0; }
+.fl-h3 { font-weight: 700; font-size: 28px; line-height: 1.25; letter-spacing: -0.02em; color: var(--fg-strong); margin: 0; }
+.fl-eyebrow {
+  font-weight: 700; font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--fg-muted);
 }
